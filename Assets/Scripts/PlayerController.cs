@@ -6,6 +6,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float moveSpeed = 5f;
 
+    [SerializeField]
+    private float dashPower = 2f;
+
     [SerializeField] // 重力の作成
     private float gravity = -9.81f;
 
@@ -18,7 +21,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] // メインカメラ
     private Transform cameraTransform;
 
-    private float verticalVelocity;
+    [SerializeField]
+    private GameObject bulletPrefab;
+
+    [SerializeField]
+    private Transform muzzle;
+
+    private float verticalVelocity = 0f;
+
+    private bool wasGrounded = false;
 
     private CharacterController controller;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -36,24 +47,62 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+        bool isGrounded = controller.isGrounded;
 
         Vector3 move = transform.forward * vertical + transform.right * horizontal;
+        
+        float currentSpeed = moveSpeed;
 
-        move.y = verticalVelocity; // 重力分
-
-        controller.Move(move * moveSpeed * Time.deltaTime);
-
-        // 重力に関する処理
-        if(controller.isGrounded && verticalVelocity < 0)
+        // ダッシュ検知
+        if(Input.GetKey(KeyCode.LeftShift))
         {
-            verticalVelocity = -2f;
+            currentSpeed = currentSpeed * dashPower;
         }
 
-        if(Input.GetButtonDown("Jump") && controller.isGrounded)
+        // 平面移動
+        controller.Move(move * currentSpeed * Time.deltaTime);
+
+        // 上下対応
+        controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+
+        // 重力に関する処理
+        if(isGrounded)
+        {
+            if(verticalVelocity < 0)
+            {
+                verticalVelocity = -2f; // init
+            }
+        }
+        else if(wasGrounded && verticalVelocity < 0)
+        {
+            verticalVelocity = 0;
+        }
+
+        if(Input.GetButton("Jump") && isGrounded)
         {
             verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
         verticalVelocity += gravity * Time.deltaTime;
+
+        if(transform.position.y <= 0) // 落下時の処理
+        {
+            transform.position = new Vector3(0, 1, 0);
+        }
+
+        // 弾発射
+        if(Input.GetMouseButtonDown(0))
+        {
+            GameObject bullet = PoolManager.Instance.GetBullet();
+
+            if(bullet != null)
+            {
+                bullet.transform.position = muzzle.position;
+                bullet.transform.rotation = muzzle.rotation;
+                bullet.SetActive(true);
+            }
+        }
+
+        wasGrounded = isGrounded;
     }
 }
