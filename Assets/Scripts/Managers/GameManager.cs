@@ -7,9 +7,6 @@ public class GameManager : MonoBehaviour
 
     private int itemCount;
 
-    [SerializeField]
-    private float remainTime = 180f;
-
     private void Awake()
     {
         Instance = this;
@@ -23,14 +20,9 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        remainTime -= Time.deltaTime;
-
-        if(remainTime <= 0)
+        if(TimeManager.Instance.remainingTime <= 0)
         {
-            remainTime = 0;
-            Debug.Log("Game Over");
+            Debug.Log("Time Up!!");
         }
-        
-        Debug.Log($"のこり {remainTime}");
     }
 }

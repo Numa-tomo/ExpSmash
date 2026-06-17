@@ -51,16 +51,18 @@ public class PlayerController : MonoBehaviour
 
         Vector3 move = transform.forward * vertical + transform.right * horizontal;
         
-        float currentSpeed = moveSpeed;
+        float currentMoveSpeed = moveSpeed + PlayerStatusManager.Instance.speed * 0.5f;
+        float currentJumpHeight = jumpHeight + PlayerStatusManager.Instance.jump * 0.3f;
+        float currentGravity = gravity - PlayerStatusManager.Instance.gravity * 2f;
 
         // ダッシュ検知
         if(Input.GetKey(KeyCode.LeftShift))
         {
-            currentSpeed = currentSpeed * dashPower;
+            currentMoveSpeed = currentMoveSpeed * dashPower;
         }
 
         // 平面移動
-        controller.Move(move * currentSpeed * Time.deltaTime);
+        controller.Move(move * currentMoveSpeed * Time.deltaTime);
 
         // 上下対応
         controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
@@ -80,10 +82,10 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetButton("Jump") && isGrounded)
         {
-            verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            verticalVelocity = Mathf.Sqrt(currentJumpHeight * -2f * currentGravity);
         }
 
-        verticalVelocity += gravity * Time.deltaTime;
+        verticalVelocity += currentGravity * Time.deltaTime;
 
         if(transform.position.y <= 0) // 落下時の処理
         {
