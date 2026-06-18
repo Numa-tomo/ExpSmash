@@ -14,11 +14,6 @@ public class Bullet : MonoBehaviour
     {
         timer = 0f;
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -35,7 +30,12 @@ public class Bullet : MonoBehaviour
     {
         if(other.CompareTag("Target"))
         {
-            other.gameObject.SetActive(false);
+            Target target = other.GetComponent<Target>();
+            if(target != null)
+            {
+                target.DestroyTarget();
+            }
+
             gameObject.SetActive(false);
         }
         else if(other.CompareTag("Wall"))
