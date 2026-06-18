@@ -9,13 +9,15 @@ public class GameManager : MonoBehaviour
 
     private int itemCount;
 
-    private bool isTimeUp = false;
+    public bool isTimeUp {get; private set;}
+
+    public bool IsEventClear {get; private set;}
 
     private void Awake()
     {
         Instance = this;
     }
-    
+
     public void AddItem()
     {
         itemCount++;
@@ -24,17 +26,31 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if(TimeManager.Instance.remainingTime <= 0 && !isTimeUp)
+        
+    }
+
+    public void ExplorePartFinish()
+    {
+        if(TimeManager.Instance.remainingTime <= 0)
         {
             isTimeUp = true;
 
             Debug.Log("Time Up!!");
-            SceneManager.LoadScene("EventScene");
         }
+        SceneManager.LoadScene("EventScene");
     }
 
     public void EventClear()
     {
-        Debug.Log("Event Clear!");
+        IsEventClear = true;
+        SceneManager.LoadScene("ResultScene");
+    }
+
+    public void ResetGame()
+    {
+        isTimeUp = false;
+        IsEventClear = false;
+        Debug.Log($"isTimeUp = {isTimeUp}");
+        Debug.Log($"remainingTime = {TimeManager.Instance.remainingTime}");
     }
 }

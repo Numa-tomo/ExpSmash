@@ -36,10 +36,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-
-        // カーソル固定・見えなくする
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 
     // Update is called once per frame
