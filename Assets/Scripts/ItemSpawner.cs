@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -12,25 +13,32 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField]
     private int spawnCount = 20;
 
-    [SerializeField]
-    private float minX = -100f;
+    [System.Serializable]
+    private class FieldRange
+    {
+        [SerializeField] private float minX = -100f;
+        [SerializeField ]private float maxX = 100f;
+        [SerializeField] private float minZ = -100f;
+        [SerializeField] private float maxZ = 100f;
 
+        public float MinX => minX ;
+        public float MaxX => maxX;
+        public float MinZ => minZ;
+        public float MaxZ => maxZ;
+    }
     [SerializeField]
-    private float maxX = 100f;
-
-    [SerializeField]
-    private float minZ = -100f;
-
-    [SerializeField]
-    private float maxZ = 100f;
+    private FieldRange fields;
 
     [SerializeField]
     private float minDistance = 5f;
 
     [SerializeField]
-    private int targetItemCount = 20;
+    private int respawnItemCount = 15;
 
     private int currentItemCount;
+
+    [SerializeField]
+    private float respawnDelay = 5f;
 
     [SerializeField]
     private Transform spawnPointsParent;
@@ -42,11 +50,15 @@ public class ItemSpawner : MonoBehaviour
 
     private List<Vector3> spawnedPositions = new List<Vector3>();
 
+    private bool lessItems;
+
+    private int prespawnCount = 0;
+
     private void Awake()
     {
         Instance = this;
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
     void Start()
     {
         foreach(Transform child in spawnPointsParent)
@@ -59,10 +71,7 @@ public class ItemSpawner : MonoBehaviour
 
     void Update()
     {
-        if(currentItemCount < targetItemCount)
-        {
-            SpawnRandomItem();
-        }
+        lessItems = currentItemCount + prespawnCount < respawnItemCount;
     }
 
     private void SpawnItems()
@@ -74,8 +83,8 @@ public class ItemSpawner : MonoBehaviour
 
             do
             {
-                float x = Random.Range(minX, maxX);
-                float z = Random.Range(minZ, maxZ);
+                float x = Random.Range(fields.MinX, fields.MaxX);
+                float z = Random.Range(fields.MinZ, fields.MaxZ);
 
                 position = new Vector3(x, 0.5f, z);
 
@@ -97,6 +106,7 @@ public class ItemSpawner : MonoBehaviour
             );
         }
         currentItemCount = spawnCount;
+        lessItems = false;
     }
 
     private void SpawnRandomItem()
@@ -106,8 +116,8 @@ public class ItemSpawner : MonoBehaviour
 
         do
         {
-            float x = Random.Range(minX, maxX);
-            float z = Random.Range(minZ, maxZ);
+            float x = Random.Range(fields.MinX, fields.MaxX);
+            float z = Random.Range(fields.MinZ, fields.MaxZ);
 
             position = new Vector3(x, 0.5f, z);
 
@@ -127,6 +137,7 @@ public class ItemSpawner : MonoBehaviour
             Quaternion.identity,
             itemParent
         );
+        currentItemCount++;
     }
 
     private bool IsTooClose(Vector3 position)
@@ -148,5 +159,18 @@ public class ItemSpawner : MonoBehaviour
     public void ItemCollected()
     {
         currentItemCount--;
+        StartCoroutine(
+            RespawnAfterDelay()
+        );
+    }
+
+    private IEnumerator RespawnAfterDelay()
+    {
+        prespawnCount++;
+        yield return new WaitForSeconds(
+            respawnDelay
+        );
+        SpawnRandomItem();
+        prespawnCount--;
     }
 }

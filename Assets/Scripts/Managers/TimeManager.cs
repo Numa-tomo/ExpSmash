@@ -32,6 +32,7 @@ public class TimeManager : MonoBehaviour
         if(remainingTime < 0)
         {
             remainingTime = 0;
+            ExploreManager.Instance.ExploreFinish();
         }
 
         int minutes = Mathf.FloorToInt(remainingTime / 60);

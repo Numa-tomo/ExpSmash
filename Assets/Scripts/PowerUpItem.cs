@@ -17,7 +17,7 @@ public class PowerUpItem : MonoBehaviour
         if(!other.CompareTag("Player")){ return; }
         ApplyPowerUp();
         Destroy(gameObject);
-        ItemSpawner.Instance.ItemCollected();//無限増殖するバグ発生（未修正）
+        ItemSpawner.Instance.ItemCollected();
     }
 
     private void ApplyPowerUp()

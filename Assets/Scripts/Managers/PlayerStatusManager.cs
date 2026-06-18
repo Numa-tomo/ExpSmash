@@ -13,6 +13,13 @@ public class PlayerStatusManager : MonoBehaviour
         Instance = this;
     }
 
+    public void InitStatus()
+    {
+        speed = 0;
+        jump = 0;
+        gravity = 0;
+    }
+
     public void AddSpeed()
     {
         speed++;
