@@ -159,9 +159,12 @@ public class ItemSpawner : MonoBehaviour
     public void ItemCollected()
     {
         currentItemCount--;
-        StartCoroutine(
-            RespawnAfterDelay()
-        );
+        if (lessItems)
+        {
+            StartCoroutine(
+                RespawnAfterDelay()
+            );
+        }
     }
 
     private IEnumerator RespawnAfterDelay()

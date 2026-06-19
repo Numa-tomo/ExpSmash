@@ -11,6 +11,11 @@ public class EventManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        EventSceneInitializer.Instance.InitScene();
+    }
+
     public void RegisterTarget()
     {
         remainingTargets++;

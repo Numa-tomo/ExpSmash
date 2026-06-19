@@ -8,11 +8,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField]
     private float timeLimit = 180f;
 
-    public float remainingTime
-    {
-        get;
-        private set;
-    }
+    public float remainingTime { get; private set; }
 
     [SerializeField]
     private TextMeshProUGUI timerText;
@@ -20,12 +16,10 @@ public class TimeManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
-        remainingTime = timeLimit;
+        timeLimit = GameSettingsManager.Instance.exploreTime;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         remainingTime -= Time.deltaTime;
 
@@ -40,5 +34,10 @@ public class TimeManager : MonoBehaviour
         int seconds = Mathf.FloorToInt(remainingTime % 60);
 
         timerText.text = $"{minutes:00}:{seconds:00}";
+    }
+
+    public void InitTimer()
+    {
+        remainingTime = timeLimit;
     }
 }

@@ -25,13 +25,13 @@ public class PowerUpItem : MonoBehaviour
         switch(ItemType)
         {
             case PowerUpType.Speed:
-                PlayerStatusManager.Instance.speed++;
+                PlayerStatusManager.Instance.AddSpeed();
                 break;
             case PowerUpType.Jump:
-                PlayerStatusManager.Instance.jump++;
+                PlayerStatusManager.Instance.AddJump();
                 break;
             case PowerUpType.Gravity:
-                PlayerStatusManager.Instance.gravity++;
+                PlayerStatusManager.Instance.AddGravity();
                 break;
         }
     }

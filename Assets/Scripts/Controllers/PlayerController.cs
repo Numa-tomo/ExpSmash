@@ -31,11 +31,15 @@ public class PlayerController : MonoBehaviour
 
     private bool wasGrounded = false;
 
-    private CharacterController controller;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private CharacterController characterController;
+
+    private CameraTargetController cameraTargetController;
+    
+    private void Awake()
     {
-        controller = GetComponent<CharacterController>();
+        characterController = GetComponent<CharacterController>();
+        cameraTargetController = GetComponentInChildren<CameraTargetController>();
+
     }
 
     // Update is called once per frame
@@ -43,7 +47,7 @@ public class PlayerController : MonoBehaviour
     {
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
-        bool isGrounded = controller.isGrounded;
+        bool isGrounded = characterController.isGrounded;
 
         Vector3 move = transform.forward * vertical + transform.right * horizontal;
         
@@ -58,10 +62,10 @@ public class PlayerController : MonoBehaviour
         }
 
         // 平面移動
-        controller.Move(move * currentMoveSpeed * Time.deltaTime);
+        characterController.Move(move * currentMoveSpeed * Time.deltaTime);
 
         // 上下対応
-        controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+        characterController.Move(Vector3.up * verticalVelocity * Time.deltaTime);
 
         // 重力に関する処理
         if(isGrounded)
@@ -102,5 +106,15 @@ public class PlayerController : MonoBehaviour
         }
 
         wasGrounded = isGrounded;
+    }
+
+    public void SpawnAt(Transform spawnPoint)
+    {
+        characterController.enabled = false;
+        transform.position = spawnPoint.position;
+        transform.rotation = spawnPoint.rotation;
+        characterController.enabled = true;
+
+        cameraTargetController.ResetView();
     }
 }

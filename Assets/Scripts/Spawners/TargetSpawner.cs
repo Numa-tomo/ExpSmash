@@ -17,6 +17,11 @@ public class TargetSpawner : MonoBehaviour
 
     private List<Vector3> spawnedPositions = new List<Vector3>();
 
+    private void Awake()
+    {
+        spawnCount = GameSettingsManager.Instance.targetCount;
+    }
+
     void Start()
     {
         foreach(Transform child in spawnPointParent)

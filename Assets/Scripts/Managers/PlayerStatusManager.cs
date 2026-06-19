@@ -4,9 +4,9 @@ public class PlayerStatusManager : MonoBehaviour
 {
     public static PlayerStatusManager Instance;
 
-    public int speed = 0;
-    public int jump = 0;
-    public int gravity = 0;
+    public int speed {get; private set;}
+    public int jump {get; private set;}
+    public int gravity {get; private set;}
 
     private void Awake()
     {

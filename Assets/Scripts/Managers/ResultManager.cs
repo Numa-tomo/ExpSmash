@@ -44,7 +44,13 @@ public class ResultManager : MonoBehaviour
 
     public void ReturnExplore()
     {
-        GameManager.Instance.ResetGame();
         SceneManager.LoadScene("ExploreScene");
+    }
+
+    public void ReturnTitle()
+    {
+        PlayerStatusManager.Instance.InitStatus();
+        GameManager.Instance.ResetGameFlags();
+        SceneManager.LoadScene("TitleScene");
     }
 }
