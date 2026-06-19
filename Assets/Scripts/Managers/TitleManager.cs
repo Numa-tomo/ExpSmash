@@ -31,6 +31,9 @@ public class TitleManager : MonoBehaviour
     {
         mainPanel.SetActive(false);
         optionPanel.SetActive(true);
+
+        timeInput.text = GameSettingsManager.Instance.exploreTime.ToString();
+        targetInput.text = GameSettingsManager.Instance.targetCount.ToString();
     }
 
     public void CloseOption()
