@@ -7,8 +7,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    private int itemCount;
-
     public bool isTimeUp {get; private set;}
 
     public bool IsEventClear {get; private set;}
@@ -16,17 +14,6 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-    }
-
-    public void AddItem()
-    {
-        itemCount++;
-        Debug.Log($"取得数 : {itemCount}");
-    }
-
-    private void Update()
-    {
-        
     }
 
     public void ExplorePartFinish()
@@ -50,7 +37,5 @@ public class GameManager : MonoBehaviour
     {
         isTimeUp = false;
         IsEventClear = false;
-        Debug.Log($"isTimeUp = {isTimeUp}");
-        Debug.Log($"remainingTime = {TimeManager.Instance.remainingTime}");
     }
 }

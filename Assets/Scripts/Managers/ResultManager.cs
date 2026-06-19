@@ -44,7 +44,7 @@ public class ResultManager : MonoBehaviour
 
     public void ReturnExplore()
     {
-        GameManager.Instance.ResetGame();
+        GameManager.Instance.ResetGame(); // 現在は重複しているがタイトルシーン等の追加時には役立つ
         SceneManager.LoadScene("ExploreScene");
     }
 }

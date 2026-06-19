@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5311795562357988942}
-  - component: {fileID: 8059838138943784217}
   m_Layer: 0
   m_Name: CameraPivot
   m_TagString: Untagged
@@ -33,19 +32,6 @@ Transform:
   - {fileID: 1276820814964980199}
   m_Father: {fileID: 3373608217854084294}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8059838138943784217
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 809308132100556935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a4c10e7b252c4556b181ca486f0cc1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraController
-  mouseSensitivity: 1000
 --- !u!1 &4390050428862888551
 GameObject:
   m_ObjectHideFlags: 0

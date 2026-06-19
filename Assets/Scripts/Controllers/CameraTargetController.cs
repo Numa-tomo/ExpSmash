@@ -7,13 +7,7 @@ public class CameraTargetController : MonoBehaviour
     private float sensitivity = 150f;
 
     private float pitch;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    
     void Update()
     {
         float mouseX = Input.GetAxis("Mouse X");
@@ -37,5 +31,11 @@ public class CameraTargetController : MonoBehaviour
             0,
             0
         );
+    }
+
+    public void ResetView()
+    {
+        pitch = 0f;
+        transform.localRotation =  Quaternion.Euler(0, 0, 0);
     }
 }
