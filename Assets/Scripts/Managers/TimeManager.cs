@@ -16,6 +16,7 @@ public class TimeManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        timeLimit = GameSettingsManager.Instance.exploreTime;
     }
 
     private void Update()

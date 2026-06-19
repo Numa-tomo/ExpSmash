@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("ResultScene");
     }
 
-    public void ResetGame()
+    public void ResetGameFlags()
     {
         isTimeUp = false;
         IsEventClear = false;

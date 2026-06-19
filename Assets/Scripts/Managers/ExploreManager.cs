@@ -28,7 +28,7 @@ public class ExploreManager : MonoBehaviour
     {
         TimeManager.Instance.InitTimer();
         PlayerStatusManager.Instance.InitStatus();
-        GameManager.Instance.ResetGame();
+        GameManager.Instance.ResetGameFlags();
         InitPlayerLocation();
     }
 
