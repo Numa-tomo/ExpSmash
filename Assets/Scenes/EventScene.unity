@@ -1174,6 +1174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d7506b2d1fa147eca501283638b578b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EventManager
+  player: {fileID: 1745759689}
 --- !u!1 &1539763848
 GameObject:
   m_ObjectHideFlags: 0
@@ -1566,6 +1567,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 634969701264686019, guid: 844f0c0f6acf044f2b7471a6f525c63c, type: 3}
   m_PrefabInstance: {fileID: 1745759686}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1745759689 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7677953002416731478, guid: 844f0c0f6acf044f2b7471a6f525c63c, type: 3}
+  m_PrefabInstance: {fileID: 1745759686}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51beda05645df4dfe8377a86ad962f3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
 --- !u!1 &1833892269
 GameObject:
   m_ObjectHideFlags: 0

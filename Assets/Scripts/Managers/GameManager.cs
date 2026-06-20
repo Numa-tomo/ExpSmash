@@ -7,22 +7,30 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public bool isTimeUp {get; private set;}
+    public bool IsTimeUp {get; private set;}
 
     public bool IsEventClear {get; private set;}
 
     private void Awake()
     {
+        if(Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+    }
+
+    public void GoToEvent()
+    {
+        SceneManager.LoadScene("EventScene");
     }
 
     public void ExplorePartFinish()
     {
         if(TimeManager.Instance.remainingTime <= 0)
         {
-            isTimeUp = true;
-
-            Debug.Log("Time Up!!");
+            IsTimeUp = true;
         }
         SceneManager.LoadScene("EventScene");
     }
@@ -35,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetGameFlags()
     {
-        isTimeUp = false;
+        IsTimeUp = false;
         IsEventClear = false;
     }
 }

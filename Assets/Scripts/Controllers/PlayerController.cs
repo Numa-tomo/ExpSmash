@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
 
     private bool wasGrounded = false;
 
+    public bool canControl = false;
+
     private CharacterController characterController;
 
     private CameraTargetController cameraTargetController;
@@ -45,6 +47,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!canControl) { return; }
+        
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         bool isGrounded = characterController.isGrounded;

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -16,12 +17,19 @@ public class ExploreManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
+    private IEnumerator Start()
     {
+        player.canControl = false;
         InitScene();
         // カーソル固定・見えなくする
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        yield return new WaitUntil(
+            () => CountDownManager.Instance.IsFinished
+        );
+
+        player.canControl = true;
     }
 
     private void InitScene()
@@ -34,9 +42,7 @@ public class ExploreManager : MonoBehaviour
 
     private void InitPlayerLocation()
     {
-        Debug.Log("InitPlayerLocation");
         player.SpawnAt(spawner.GetRandomSpawnPoint());
-        
     }
 
     public void ExploreFinish()

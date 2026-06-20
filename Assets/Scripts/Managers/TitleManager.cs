@@ -27,6 +27,12 @@ public class TitleManager : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI applyButtonText;
 
+    private void Start()
+    {
+        timeSlider.value = GameSettingsManager.Instance.exploreTime;
+        targetSlider.value = GameSettingsManager.Instance.targetCount;
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene("ExploreScene");

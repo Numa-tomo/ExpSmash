@@ -4,6 +4,9 @@ public class EventManager : MonoBehaviour
 {
     public static EventManager Instance;
 
+    [SerializeField]
+    private PlayerController player;
+
     private int remainingTargets;
 
     private void Awake()
@@ -14,6 +17,7 @@ public class EventManager : MonoBehaviour
     private void Start()
     {
         EventSceneInitializer.Instance.InitScene();
+        player.canControl = true;
     }
 
     public void RegisterTarget()
