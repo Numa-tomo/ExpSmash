@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class TitleManager : MonoBehaviour
 {
@@ -11,10 +13,19 @@ public class TitleManager : MonoBehaviour
     private GameObject optionPanel;
 
     [SerializeField]
-    private TMP_InputField timeInput;
+    private Slider timeSlider;
 
     [SerializeField]
-    private TMP_InputField targetInput;
+    private Slider targetSlider;
+
+    [SerializeField]
+    private TMP_Text timeVelueText;
+
+    [SerializeField]
+    private TMP_Text targetValueText;
+
+    [SerializeField]
+    private TextMeshProUGUI applyButtonText;
 
     public void StartGame()
     {
@@ -32,8 +43,9 @@ public class TitleManager : MonoBehaviour
         mainPanel.SetActive(false);
         optionPanel.SetActive(true);
 
-        timeInput.text = GameSettingsManager.Instance.exploreTime.ToString();
-        targetInput.text = GameSettingsManager.Instance.targetCount.ToString();
+        timeSlider.value = GameSettingsManager.Instance.exploreTime;
+        targetSlider.value = GameSettingsManager.Instance.targetCount;
+        UpdateDisplay();
     }
 
     public void CloseOption()
@@ -42,12 +54,25 @@ public class TitleManager : MonoBehaviour
         mainPanel.SetActive(true);
     }
 
-    public void ApplySettings()
+    public void UpdateDisplay()
     {
-        float time = float.Parse(timeInput.text);
-        int target = int.Parse(targetInput.text);
+        int minutes = Mathf.FloorToInt(timeSlider.value / 60);
+        int seconds = Mathf.FloorToInt(timeSlider.value % 60);
 
-        GameSettingsManager.Instance.exploreTime = time;
-        GameSettingsManager.Instance.targetCount = target;
+        timeVelueText.text = $"{minutes:00}:{seconds:00}";
+        targetValueText.text = $"{targetSlider.value: 0}";
+    }
+
+    public void OnTimeChanged(float value)
+    {
+        GameSettingsManager.Instance.exploreTime = value;
+        UpdateDisplay();
+    }
+
+    public void OnTargetChanged(float value)
+    {
+        GameSettingsManager.Instance.targetCount = Mathf.RoundToInt(value);
+
+        UpdateDisplay();
     }
 }
