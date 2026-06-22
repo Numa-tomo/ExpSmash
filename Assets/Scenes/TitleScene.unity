@@ -426,11 +426,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TitleManager
   mainPanel: {fileID: 1259314319}
   optionPanel: {fileID: 914913706}
-  timeSlider: {fileID: 1268394795}
-  targetSlider: {fileID: 2119645419}
-  timeVelueText: {fileID: 2056163073}
-  targetValueText: {fileID: 1168139614}
-  applyButtonText: {fileID: 0}
 --- !u!4 &319485714
 Transform:
   m_ObjectHideFlags: 0
@@ -1294,6 +1289,58 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 925972603}
   m_CullTransparentMesh: 1
+--- !u!1 &973502728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 973502729}
+  - component: {fileID: 973502730}
+  m_Layer: 5
+  m_Name: TitleUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &973502729
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973502728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1104283686}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &973502730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973502728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9069641340ad44766ba373d212e68b19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TitleUI
+  timeSlider: {fileID: 1268394795}
+  targetSlider: {fileID: 2119645419}
+  timeVelueText: {fileID: 2056163073}
+  targetValueText: {fileID: 1168139614}
 --- !u!1 &1104283682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,6 +1438,7 @@ RectTransform:
   m_Children:
   - {fileID: 1259314320}
   - {fileID: 914913709}
+  - {fileID: 973502729}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1918,8 +1966,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 319485713}
-        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+      - m_Target: {fileID: 973502730}
+        m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
         m_MethodName: OnTimeChanged
         m_Mode: 0
         m_Arguments:
@@ -3208,8 +3256,8 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 319485713}
-        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+      - m_Target: {fileID: 973502730}
+        m_TargetAssemblyTypeName: TitleUI, Assembly-CSharp
         m_MethodName: OnTargetChanged
         m_Mode: 0
         m_Arguments:
