@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,9 @@ public class ResultManager : MonoBehaviour
 
     [SerializeField]
     private TMP_Text resultText;
+
+    [SerializeField]
+    private TMP_Text timeText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -40,6 +44,8 @@ public class ResultManager : MonoBehaviour
         {
             resultText.text = "FAILED...";
         }
+
+        timeText.text = $"Time : {GameManager.Instance.LastEventTime:F2} sec";
     }
 
     public void ReturnExplore()

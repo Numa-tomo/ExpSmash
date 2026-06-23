@@ -7,7 +7,14 @@ public class EventManager : MonoBehaviour
     [SerializeField]
     private PlayerController player;
 
+    [SerializeField]
+    private GameObject goalRoot;
+
     private int remainingTargets;
+
+    private float eventTime;
+
+    private bool isPlaying;
 
     private void Awake()
     {
@@ -18,6 +25,17 @@ public class EventManager : MonoBehaviour
     {
         EventSceneInitializer.Instance.InitScene();
         player.canControl = true;
+        eventTime = 0f;
+        isPlaying = true;
+        goalRoot.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (isPlaying)
+        {
+            eventTime += Time.deltaTime;
+        }
     }
 
     public void RegisterTarget()
@@ -31,12 +49,25 @@ public class EventManager : MonoBehaviour
 
         if(remainingTargets <= 0)
         {
-            EventClear();
+            goalRoot.SetActive(true);
         }
+    }
+
+    public void GoalReached()
+    {
+        Debug.Log("Reached!");
+        EventClear();
     }
 
     public void EventClear()
     {
-        GameManager.Instance.EventClear();
+        StopTimer();
+        Debug.Log($"time: {eventTime:F2}");
+        GameManager.Instance.EventClear(eventTime);
+    }
+
+    public void StopTimer()
+    {
+        isPlaying = false;
     }
 }

@@ -188,12 +188,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 5
   dashPower: 2
-  gravity: -12
-  jumpHeight: 2
+  gravity: -20
+  jumpHeight: 2.5
   cameraTarget: {fileID: 634969701264686019}
   cameraTransform: {fileID: 1276820814964980199}
   bulletPrefab: {fileID: 8782483368258626410, guid: 8b01ab5125d9143288562ae0740da082, type: 3}
   muzzle: {fileID: 8203852777129437974}
+  canControl: 0
 --- !u!1 &4451946322961995595
 GameObject:
   m_ObjectHideFlags: 0

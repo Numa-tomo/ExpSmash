@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
 
     public bool IsEventClear {get; private set;}
 
+    public float LastEventTime {get; private set;}
+
     private void Awake()
     {
         if(Instance != null)
@@ -35,8 +37,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("EventScene");
     }
 
-    public void EventClear()
+    public void EventClear(float clearTime)
     {
+        LastEventTime = clearTime;
         IsEventClear = true;
         SceneManager.LoadScene("ResultScene");
     }
