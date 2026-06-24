@@ -19,7 +19,7 @@ public class TitleManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("ExploreScene");
+        GameManager.Instance.StartExplore();
     }
     
     public void ExitGame()
@@ -33,7 +33,6 @@ public class TitleManager : MonoBehaviour
         mainPanel.SetActive(false);
         optionPanel.SetActive(true);
 
-        TitleUI.Instance.InitSliderValue();
         TitleUI.Instance.UpdateDisplay();
     }
 

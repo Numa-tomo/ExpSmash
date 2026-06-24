@@ -6,7 +6,7 @@ public class WarpGate : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameManager.Instance.GoToEvent();
+            GameManager.Instance.ExplorePartFinish();
         }
     }
 }

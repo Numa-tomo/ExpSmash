@@ -55,14 +55,12 @@ public class EventManager : MonoBehaviour
 
     public void GoalReached()
     {
-        Debug.Log("Reached!");
         EventClear();
     }
 
     public void EventClear()
     {
         StopTimer();
-        Debug.Log($"time: {eventTime:F2}");
         GameManager.Instance.EventClear(eventTime);
     }
 
