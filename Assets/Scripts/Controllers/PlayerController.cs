@@ -27,9 +27,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform muzzle;
 
-    private float verticalVelocity = 0f;
+    private float verticalVelocity = -2f;
 
     private bool wasGrounded = false;
+
+    public bool canControl = false;
 
     private CharacterController characterController;
 
@@ -45,6 +47,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!canControl) {characterController.Move(Vector3.up * verticalVelocity * Time.deltaTime); return; }
+        
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
         bool isGrounded = characterController.isGrounded;

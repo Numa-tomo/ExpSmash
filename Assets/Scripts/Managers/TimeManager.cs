@@ -17,10 +17,13 @@ public class TimeManager : MonoBehaviour
     {
         Instance = this;
         timeLimit = GameSettingsManager.Instance.exploreTime;
+        DisplayTime(timeLimit);
     }
 
     private void Update()
     {
+        if(!IsCountStart()){ return; }
+
         remainingTime -= Time.deltaTime;
 
         if(remainingTime < 0)
@@ -29,15 +32,30 @@ public class TimeManager : MonoBehaviour
             ExploreManager.Instance.ExploreFinish();
         }
 
-        int minutes = Mathf.FloorToInt(remainingTime / 60);
-
-        int seconds = Mathf.FloorToInt(remainingTime % 60);
-
-        timerText.text = $"{minutes:00}:{seconds:00}";
+        DisplayTime(remainingTime);
     }
 
     public void InitTimer()
     {
         remainingTime = timeLimit;
+    }
+
+    private void DisplayTime(float time)
+    {
+        int minutes = Mathf.FloorToInt(time / 60);
+
+        int seconds = Mathf.FloorToInt(time % 60);
+
+        timerText.text = $"{minutes:00}:{seconds:00}";
+    }
+
+    private bool IsCountStart()
+    {
+        if (CountDownManager.Instance.IsFinished)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -59,7 +59,7 @@ public class ItemSpawner : MonoBehaviour
         Instance = this;
     }
 
-    void Start()
+    private void Start()
     {
         foreach(Transform child in spawnPointsParent)
         {
@@ -69,7 +69,7 @@ public class ItemSpawner : MonoBehaviour
         SpawnItems();
     }
 
-    void Update()
+    private void Update()
     {
         lessItems = currentItemCount + prespawnCount < respawnItemCount;
     }
