@@ -9,6 +9,7 @@ public class TimeManager : MonoBehaviour
     private float timeLimit = 180f;
 
     public float remainingTime { get; private set; }
+    public float countUpTime { get; private set; }
 
     [SerializeField]
     private TextMeshProUGUI timerText;
@@ -17,10 +18,37 @@ public class TimeManager : MonoBehaviour
     {
         Instance = this;
         timeLimit = GameSettingsManager.Instance.exploreTime;
-        DisplayTime(timeLimit);
+        countUpTime = 0f;
+    }
+
+    private void Start()
+    {
+        switch(GameManager.Instance.CurrentPhase)
+        {
+            case GamePhase.Explore:
+                DisplayTime(timeLimit);
+                break;
+            case GamePhase.Event:
+                DisplayTime(countUpTime);
+                break;
+        }
     }
 
     private void Update()
+    {
+        switch(GameManager.Instance.CurrentPhase)
+        {
+            case GamePhase.Explore:
+                ExploreUpdate();
+                break;
+            case GamePhase.Event:
+                EventUpdate();
+                break;
+        }
+        
+    }
+
+    private void ExploreUpdate()
     {
         if(!IsCountStart()){ return; }
 
@@ -33,6 +61,15 @@ public class TimeManager : MonoBehaviour
         }
 
         DisplayTime(remainingTime);
+    }
+
+    private void EventUpdate()
+    {
+        if (EventManager.Instance.isPlaying)
+        {
+            countUpTime += Time.deltaTime;
+        }
+        DisplayTime(countUpTime);
     }
 
     public void InitTimer()

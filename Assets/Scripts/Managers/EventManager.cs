@@ -12,9 +12,7 @@ public class EventManager : MonoBehaviour
 
     private int remainingTargets;
 
-    private float eventTime;
-
-    private bool isPlaying;
+    public bool isPlaying {get; private set;}
 
     private void Awake()
     {
@@ -25,17 +23,8 @@ public class EventManager : MonoBehaviour
     {
         EventSceneInitializer.Instance.InitScene();
         player.canControl = true;
-        eventTime = 0f;
         isPlaying = true;
         goalRoot.SetActive(false);
-    }
-
-    private void Update()
-    {
-        if (isPlaying)
-        {
-            eventTime += Time.deltaTime;
-        }
     }
 
     public void RegisterTarget()
@@ -58,13 +47,13 @@ public class EventManager : MonoBehaviour
         EventClear();
     }
 
-    public void EventClear()
+    private void EventClear()
     {
         StopTimer();
-        GameManager.Instance.EventClear(eventTime);
+        GameManager.Instance.EventClear(TimeManager.Instance.countUpTime);
     }
 
-    public void StopTimer()
+    private void StopTimer()
     {
         isPlaying = false;
     }
