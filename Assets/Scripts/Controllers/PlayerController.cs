@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     private CharacterController characterController;
 
     private CameraTargetController cameraTargetController;
+
+    private MovingPlatform currentPlatform;
     
     private void Awake()
     {
@@ -53,6 +55,8 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
         bool isGrounded = characterController.isGrounded;
 
+        if(!isGrounded) { currentPlatform = null; }
+
         Vector3 move = transform.forward * vertical + transform.right * horizontal;
         
         float currentMoveSpeed = moveSpeed + PlayerStatusManager.Instance.speed * 0.5f;
@@ -65,8 +69,18 @@ public class PlayerController : MonoBehaviour
             currentMoveSpeed = currentMoveSpeed * dashPower;
         }
 
+        // 動く床検知
+        Vector3 platformMovement = Vector3.zero;
+        if(currentPlatform != null)
+        {
+            platformMovement = currentPlatform.DeltaPosition;
+        }
+
         // 平面移動
         characterController.Move(move * currentMoveSpeed * Time.deltaTime);
+
+        // 床移動
+        characterController.Move(platformMovement);
 
         // 上下対応
         characterController.Move(Vector3.up * verticalVelocity * Time.deltaTime);
@@ -110,6 +124,16 @@ public class PlayerController : MonoBehaviour
         }
 
         wasGrounded = isGrounded;
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        MovingPlatform platform = hit.gameObject.GetComponent<MovingPlatform>();
+
+        if (platform != null)
+        {
+            currentPlatform = platform;
+        }
     }
 
     public void SpawnAt(Transform spawnPoint)
