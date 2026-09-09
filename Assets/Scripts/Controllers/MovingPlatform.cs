@@ -22,10 +22,16 @@ public class MovingPlatform : MonoBehaviour
 
     private Vector3 startPos;
     private Vector3 movePos;
+
+    private Vector3 previousPos;
+
+    public Vector3 DeltaPosition { get; private set;}
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         startPos = transform.position;
+        previousPos = transform.position;
+        DeltaPosition = transform.position;
     }
 
     // Update is called once per frame
@@ -43,5 +49,8 @@ public class MovingPlatform : MonoBehaviour
         transform.position =
             startPos +
             movePos;
+
+        DeltaPosition = transform.position - previousPos;
+        previousPos = transform.position;
     }
 }
